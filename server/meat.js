@@ -390,36 +390,92 @@ let userCommands = {
 			guid: this.guid
 		})
 	},
-    ban: function (data) {
-        if (this.private.runlevel < 3) {
-            this.socket.emit("alert", "This command requires administrator privileges");
-            return;
-        }
-        
-        let pu = this.room.getUsersPublic()[data];
-        if (pu && pu.color) {
-            let target;
-            this.room.users.map((n) => {
-                if (n.guid == data) {
-                    target = n;
-                }
-            });
-            if (!target) {
-                this.socket.emit("alert", "The user you are trying to ban left. Get dunked on nerd");
+    ban: function (data, length, reason) {
+        try {
+            if (this.private.runlevel < 3) {
+                this.socket.emit("alert", {msg: "This command requires administrator privileges"});
                 return;
             }
-            if (target.getIp() == "::1" || target.socket.request.connection.remoteAddress == "::ffff:127.0.0.1") {
-                Ban.removeBan(target.getIp());
-            } else {
-                if (target.private.runlevel > 2 && (this.getIp() != "::1" && this.getIp() != "::ffff:127.0.0.1")) {
+            
+            // Check if this is an IP-based ban (has length and reason parameters)
+            if (length !== undefined && reason !== undefined) {
+                // IP-based ban with specified length and reason
+                length = parseFloat(length) || 24;
+                reason = reason || "N/A";
+                Ban.addBan(data, length, reason);
+                this.socket.emit("alert", {msg: "Banned IP " + data + " for " + length + " minutes"});
+                log.info.log('info', 'banIP', {
+                    ip: data,
+                    length: length,
+                    reason: reason,
+                    admin: this.public.name
+                });
+                return;
+            }
+            
+            // Otherwise, treat as user GUID-based ban (existing functionality)
+            log.info.log('info', 'banGUID', {
+                targetGUID: data,
+                admin: this.public.name,
+                adminIP: this.getIp()
+            });
+            
+            let pu = this.room.getUsersPublic()[data];
+            if (pu && pu.color) {
+                let target;
+                this.room.users.forEach((n) => {
+                    if (n.guid == data) {
+                        target = n;
+                    }
+                });
+                if (!target) {
+                    this.socket.emit("alert", {msg: "The user you are trying to ban left. Get dunked on nerd"});
                     return;
                 }
-                Ban.addBan(target.getIp(),24,"You got banned.");
-                // Ensure the ban is applied to the connected socket
-                try { Ban.handleBan(target.socket); } catch(e) { /* noop */ }
+                
+                const targetName = target.public && target.public.name ? target.public.name : "Unknown";
+                const targetIp = target.getIp();
+                const adminIp = this.getIp();
+                
+                // Prevent banning yourself by GUID (not by IP, since localhost users all share the same IP)
+                if (target.guid === this.guid) {
+                    this.socket.emit("alert", {msg: "You cannot ban yourself"});
+                    return;
+                }
+                
+                // Check if trying to ban another admin from a non-localhost IP
+                if (target.private.runlevel > 2 && (adminIp != "::1" && adminIp != "::ffff:127.0.0.1")) {
+                    this.socket.emit("alert", {msg: "Cannot ban other administrators"});
+                    return;
+                }
+                
+                // Ban the user by IP
+                Ban.addBan(targetIp, 24, "You got banned.");
+                this.socket.emit("alert", {msg: "Banned user: " + targetName});
+                
+                log.info.log('info', 'banSuccess', {
+                    targetName: targetName,
+                    targetIP: targetIp,
+                    admin: this.public.name
+                });
+                
+                // Disconnect the banned socket
+                try { 
+                    Ban.handleBan(target.socket); 
+                } catch(e) { 
+                    log.info.log('warn', 'handleBanError', {
+                        error: e.message
+                    });
+                }
+            } else {
+                this.socket.emit("alert", {msg: "The user you are trying to ban left. Get dunked on nerd"});
             }
-        } else {
-            this.socket.emit("alert", "The user you are trying to ban left. Get dunked on nerd");
+        } catch(e) {
+            log.info.log('error', 'banException', {
+                error: e.message,
+                stack: e.stack
+            });
+            this.socket.emit("alert", {msg: "Error executing ban command"});
         }
     },
     swag: function (swag) {

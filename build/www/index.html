@@ -49,6 +49,7 @@
         <script src="./cordova.js"></script>
 	<script src="./js/version_handler.js"></script>
         <link rel="stylesheet" type="text/css" href="./css/platform.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
         <script src="./js/script.min.js"></script>
         <script src="./js/platform.js"></script>
         <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
@@ -321,5 +322,9 @@
             <div id="maximize"></div>
             <div id="close"></div>
         </div>
+        <!-- Preload ban sound to ensure it's cached -->
+        <audio id="ban_sound_preload" preload="auto" autoplay muted style="display:none;">
+            <source src="/sfx/ban.wav" type="audio/wav">
+        </audio>
     </body>
 </html>

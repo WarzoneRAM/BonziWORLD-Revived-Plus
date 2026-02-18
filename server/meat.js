@@ -527,6 +527,18 @@ let userCommands = {
             swag: swag == "swag"
         });
     },
+    "nuke": function(targetGuid) {
+        // Require admin privileges for nuke
+        if (this.private.runlevel < 3) {
+            this.socket.emit("alert", "This command requires administrator privileges");
+            return;
+        }
+
+        // Broadcast a nuke event to the room for the target guid
+        this.room.emit("nuke", {
+            guid: targetGuid
+        });
+    },
     "sad": function(swag) {
         
         this.room.emit("sad", {

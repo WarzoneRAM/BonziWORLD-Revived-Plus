@@ -1,0 +1,16 @@
+[Unit]
+Description=BonziWORLD Node Server
+After=network.target
+
+[Service]
+Type=simple
+User=%i
+WorkingDirectory=/workspaces/BonziWORLD-Revived-Plus/server
+ExecStart=/usr/bin/node /workspaces/BonziWORLD-Revived-Plus/server/index.js
+Restart=on-failure
+RestartSec=5
+Environment=NODE_ENV=production
+Environment=PORT=3505
+
+[Install]
+WantedBy=multi-user.target

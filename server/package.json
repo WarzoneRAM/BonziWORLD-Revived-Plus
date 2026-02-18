@@ -3,6 +3,10 @@
   "version": "2.0.2",
   "description": "Server for the BonziWORLD chat client.",
   "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build": "echo \"No build step for server\" && exit 0"
+  },
   "author": "Joseph Judge",
   "private": true,
   "license": "MIT",

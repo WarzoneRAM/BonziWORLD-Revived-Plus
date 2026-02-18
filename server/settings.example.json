@@ -4,7 +4,7 @@
             "char_limit": 2500,
             "name_limit": 25,
             "status_limit": 36,
-			"godword": "pneumonoultramicroscopicsilicovolcanoconiosis",
+            "godword": "pneumonoultramicroscopicsilicovolcanoconiosis",
             "runlevel": {
                 "godmode": 0,
                 "youtube": 0,
@@ -45,25 +45,25 @@
 				"setguid": 3,
                 "nofuckoff": 3
             },
-			"room_max": 10000,
-			"owner": null,
-			"pitch": {
-				"max": 125,
-				"min": 15,
-				"default": "random"
-			},
-			"speed": {
-				"max": 275,
-				"min": 125,
-				"default": "random"
-			},
-			"defaultName": "Anonymous"
-		},
+            "room_max": 10000,
+            "owner": null,
+            "pitch": {
+                "max": 125,
+                "min": 15,
+                "default": "random"
+            },
+            "speed": {
+                "max": 275,
+                "min": 125,
+                "default": "random"
+            },
+            "defaultName": "Anonymous"
+        },
         "private": {
             "char_limit": 5000,
             "name_limit": 25,
             "status_limit": 36,
-			"godword": "pneumonoultramicroscopicsilicovolcanoconiosis",
+            "godword": "pneumonoultramicroscopicsilicovolcanoconiosis",
             "runlevel": {
                 "godmode": 0,
                 "youtube": 0,
@@ -104,73 +104,73 @@
 				"setguid": 3,
                 "nofuckoff": 3
             },
-			"room_max": 10000,
-			"owner": null,
-			"pitch": {
-				"max": 125,
-				"min": 1,
-				"default": "random"
-			},
-			"speed": {
-				"max": 275,
-				"min": 50,
-				"default": "random"
-			},
-			"defaultName": "Anonymous"
-		}
-	},
-	"consoleOutput": true,
-	"log": {
-		"info": {
-			"level": "debug",
-			"filename": "./logs/info.log",
-			"maxsize": "1024000",
-			"maxFiles": "3",
-		"handleExceptions": true,
-		"humanReadableUnhandledException": true
-		},
-		"access": {
-			"level": "debug",
-			"filename": "./logs/access.log",
-			"maxsize": "1024000",
-			"maxFiles": "3",
-		"handleExceptions": true,
-		"humanReadableUnhandledException": true
-		}
-	},
+            "room_max": 10000,
+            "owner": null,
+            "pitch": {
+                "max": 125,
+                "min": 1,
+                "default": "random"
+            },
+            "speed": {
+                "max": 275,
+                "min": 50,
+                "default": "random"
+            },
+            "defaultName": "Anonymous"
+        }
+    },
+    "consoleOutput": true,
+    "log": {
+        "info": {
+            "level": "debug",
+            "filename": "./logs/info.log",
+            "maxsize": "1024000",
+            "maxFiles": "3",
+            "handleExceptions": true,
+            "humanReadableUnhandledException": true
+        },
+        "access": {
+            "level": "debug",
+            "filename": "./logs/access.log",
+            "maxsize": "1024000",
+            "maxFiles": "3",
+            "handleExceptions": true,
+            "humanReadableUnhandledException": true
+        }
+    },
     "bonziColors": [
-      "purple",
-      "blue",
-      "green", 
-      "red",
-      "black",
-      "brown",
-      "orange",
-      "yellow",
-      "white",
-      "ghost",
-      "grey",
-      "god",
-      "dark_purple",
-      "dark_red",
-      "lime",
-      "magenta",
-      "lemon",
-      "cyan",
-      "pink",
-      "clippy",
-      "genie",
-      "merlin",
-      "program",
-      "red_clippy",
-      "rover",
-      "max",
-      "peedy",
-      "robby"
+        "purple",
+        "blue",
+        "green",
+        "red",
+        "black",
+        "brown",
+        "orange",
+        "yellow",
+        "white",
+        "ghost",
+        "grey",
+        "god",
+        "dark_purple",
+        "dark_red",
+        "lime",
+        "magenta",
+        "lemon",
+        "cyan",
+        "pink",
+        "clippy",
+        "genie",
+        "merlin",
+        "program",
+        "red_clippy",
+        "rover",
+        "max",
+        "peedy",
+        "robby"
     ],
-	"banLength": 1440,
-	"port": 3505,
-	"express": {
-		"serveStatic": true
-	}
+    "banLength": 1440,
+    "port": 3505,
+    "express": {
+        "serveStatic": true
+    }
 }

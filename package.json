@@ -1,4 +1,7 @@
 {
+   "scripts": {
+    "start": "node server/index.js"
+  },
   "devDependencies": {
     "split-lines": "^3.0.0"
   }
